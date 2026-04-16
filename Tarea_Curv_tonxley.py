@@ -1,7 +1,7 @@
 '''
 Tarea Curv Tonxley
 Aqui planeo como hacer la curv tonxley
-Fecha: 2024-06-10
+Fecha: 2024-04-10
 Autor: Victor Perez
 ''' 
 
@@ -11,7 +11,6 @@ df = pd.read_csv("data.txt", sep ="\t") # Aqui cargue los datos del modelo de bl
 # Considero densidad de 2.7 ton/m3 y un bloque de 10x10x10 m3
 df['Volumen*Densidad'] = 10*10*10*2.7 # Calculo el tonelaje individual de cada bloque multiplicando el volumen por la densidad obteniendo tons
 b= 10*10*10*2.7
-print(df)
 Cm = 20 # USD/ton Costo minado Ejemplo
 Cp = 21 # USD/ton Costo procesamiento Ejemplo
 P = 5.7 # USD/lb Precio del cobre Ejemplo
@@ -20,12 +19,12 @@ Lbs_por_ton = 2204.62 # Conversion de toneladas a libras
 Gc = (Cm + Cp) / (Rec * Lbs_por_ton * P) * 100 # Calculo la ley de corte en %
 #* Defino un rango de leyes
 Gc_min= 0
-d = Gc/38
+d = Gc/20
 #* Calcular los bloques que estan por encima de cda ley de corte y ley media
 df['ley*ton'] = df['ley'] * df['Volumen*Densidad'] # Agregue una nueva columna que calcula ley * ton
 i = 0
 datos= [] # Una lista para crear un ndf
-while i < 38:
+while i < 20:
    mineral = df[df['ley'] >= Gc_min] # actualizo el dataframe para que solo me deje los bloques que estan por encima de la ley de corte minima
    l = len(mineral) # cuento el numero de bloques que estan por encima de la ley de corte minima
    k = 0
